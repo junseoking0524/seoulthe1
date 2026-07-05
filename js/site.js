@@ -11,8 +11,8 @@
 
   // ---- 네비게이션 메뉴 ----
   var MENUS = [
-    { key: '소개', label: '소개', href: 'about.html', desc: '서울더원을 소개합니다.',
-      items: [['의료진 소개', 'doctor.html'], ['병원소개', 'about.html'], ['진료과목', 'departments.html'], ['비급여항목', 'fees.html']] },
+    { key: '소개', label: '소개', href: 'about.html', desc: '서울더원마취통증의학과의원을 소개합니다.',
+      items: [['진료과목', 'about.html#depts'], ['의료진 소개', 'about.html#doctor'], ['병원소개', 'about.html#facility'], ['비급여항목', 'fees.html']] },
     { key: '치료안내', label: '치료안내', href: 'treatment.html', desc: '통증의 원인부터 찾는 비수술 치료.',
       items: [['관절치료 (SI치료)', 'treatment.html#care-01'], ['척추치료 (CI치료)', 'treatment.html#care-02'], ['신경성형시술 (PEN 시술)', 'treatment.html#care-03'], ['재생주사(프롤로) 치료', 'treatment.html#care-04'], ['체외충격파 (ESWT)', 'treatment.html#care-05'], ['수액치료', 'treatment.html#care-06']] },
     { key: '진료시간', label: '진료시간', href: 'hours.html', items: [] },
@@ -21,7 +21,7 @@
   ];
 
   // page -> active menu key
-  var PAGE_MENU = { doctor: '소개', about: '소개', departments: '소개', fees: '소개', treatment: '치료안내', hours: '진료시간', location: '오시는 길' };
+  var PAGE_MENU = { about: '소개', fees: '소개', treatment: '치료안내', hours: '진료시간', location: '오시는 길' };
 
   var ICON = {
     phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8a13 13 0 0 0 5.6 5.6l1.9-1.9a1 1 0 0 1 1-.24c1.1.37 2.3.57 3.5.57a1 1 0 0 1 1 1V19a1 1 0 0 1-1 1A16 16 0 0 1 4 4a1 1 0 0 1 1-1h3.2a1 1 0 0 1 1 1c0 1.2.2 2.4.57 3.5a1 1 0 0 1-.24 1z"></path></svg>',
@@ -70,15 +70,17 @@
 
   function footerHTML() {
     return '<div class="wrap foot-in">' +
-        '<div><div class="fname">서울 <span style="color:var(--orange-l)">더원</span> 마취통증의학과의원</div>' +
-          '<p class="faddr">' + ADDR + '<br>대표전화 <a href="' + PHONE_TEL + '">' + PHONE + '</a></p></div>' +
-        '<div><div class="fh">진료시간</div><div class="ft">평일 09:00 – 20:00<br>점심 13:30 – 14:30<br><b>주말·공휴일 휴진</b><br><span style="color:var(--orange-l);font-weight:700">※ 도수치료 · 물리치료는<br>점심시간 없이 진료</span></div></div>' +
+        '<div><div class="fname">서울<span style="color:var(--orange-l)">더원</span>마취통증의학과의원</div>' +
+          '<p class="faddr">' + ADDR + '<br>대표전화 <a href="' + PHONE_TEL + '">' + PHONE + '</a></p>' +
+          '<div class="ft-note">※ 도수치료 · 물리치료는 점심시간 없이 진료</div></div>' +
+        '<div><div class="fh">진료시간</div><div class="ft">평일 09:00 – 20:00<br>점심 13:30 – 14:30<br><b>주말·공휴일 휴진</b></div></div>' +
         '<div class="foot-btns">' +
           '<a class="o" href="' + BOOK_URL + '" target="_blank" rel="noopener">네이버 예약하기</a>' +
-          '<a class="g" href="location.html">오시는 길 →</a>' +
+          '<a class="g" href="location.html">오시는 길</a>' +
+          '<a class="b" href="' + BLOG_URL + '" target="_blank" rel="noopener">' + ICON.blog + '<span>블로그</span></a>' +
         '</div>' +
       '</div>' +
-      '<div class="foot-copy">© SEOUL THE ONE PAIN CLINIC. ALL RIGHTS RESERVED.</div>';
+      '<div class="foot-copy">Copyright© 서울더원마취통증의학과의원. ALL RIGHT RESERVED</div>';
   }
 
   function initMega() {
@@ -118,11 +120,11 @@
   }
 
   function initReveal() {
-    var els = document.querySelectorAll('.reveal');
+    var els = document.querySelectorAll('.reveal, .reveal-l, .reveal-r');
     if (!els.length) return;
     var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('in'); });
-    }, { threshold: 0.1 });
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
     els.forEach(function (el) { io.observe(el); });
   }
 
@@ -161,11 +163,21 @@
     var secs = Array.prototype.slice.call(document.querySelectorAll('[data-care-sec]'));
     if (!secs.length) return;
     var links = {};
-    document.querySelectorAll('.spy a[href^="#care"]').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+    document.querySelectorAll('.spy a[href^="#care"], .mspy a[href^="#care"]').forEach(function (a) {
+      var k = a.getAttribute('href').slice(1);
+      (links[k] = links[k] || []).push(a);
+    });
+    var mspy = document.querySelector('.mspy');
     var spy = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
         if (e.isIntersecting) {
-          Object.keys(links).forEach(function (k) { links[k].classList.toggle('on', k === e.target.id); });
+          Object.keys(links).forEach(function (k) {
+            links[k].forEach(function (a) { a.classList.toggle('on', k === e.target.id); });
+          });
+          if (mspy) {
+            var act = mspy.querySelector('a.on');
+            if (act) { var sc = mspy.querySelector('.mspy-track') || mspy; sc.scrollTo({ left: act.offsetLeft - sc.clientWidth / 2 + act.clientWidth / 2, behavior: 'smooth' }); }
+          }
         }
       });
     }, { rootMargin: '-42% 0px -52% 0px' });

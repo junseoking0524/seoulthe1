@@ -21,22 +21,21 @@
 
 <section class="wrap sec" style="padding-bottom:70px">
   <!-- Map -->
-  <div class="map-box reveal naver-map-wrap">
-    <div id="naver-map" class="naver-map" aria-label="서울더원마취통증의학과의원 위치 지도"></div>
-    <div class="map-floating-card">
-      <strong>서울더원마취통증의학과의원</strong>
-      <span>경기 성남시 분당구 판교로255번길 9-22<br>판교우림더블유시티 2층 218, 223호</span>
-      <a class="btn btn-navy map-link" href="https://map.naver.com/p/search/서울더원마취통증의학과의원" target="_blank" rel="noopener">네이버 지도 · 길찾기 →</a>
+  <div class="map-wrap reveal">
+    <div id="naver-map" style="width:100%;aspect-ratio:16/7;border-radius:16px;overflow:hidden"></div>
+    <div class="map-fallback" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;text-align:center;color:var(--gray-l);background:#eef1f7;border-radius:16px">
+      <div style="font-size:13px;font-weight:700;letter-spacing:.06em">서울더원마취통증의학과의원</div>
+      <a class="btn btn-navy" href="https://map.naver.com/p/search/서울더원마취통증의학과의원" target="_blank" rel="noopener">네이버 지도에서 보기 →</a>
     </div>
-    <noscript>
-      <div class="map-fallback">
-        지도를 보려면 브라우저에서 JavaScript를 활성화해 주세요.
-        <a class="btn btn-navy" href="https://map.naver.com/p/search/서울더원마취통증의학과의원" target="_blank" rel="noopener">네이버 지도 · 길찾기 →</a>
-      </div>
-    </noscript>
+  </div>
+  <div style="display:flex;justify-content:center;margin-top:16px">
+    <button id="routeBtn" class="btn btn-orange">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+      네이버 지도 · 길찾기
+    </button>
   </div>
 
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px">
+  <div class="loc-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px">
     <!-- 자차 -->
     <div class="info-card reveal">
       <div style="display:flex;align-items:center;gap:10px">
@@ -81,85 +80,12 @@
 <footer id="site-footer"></footer>
 
 <style>
-  .naver-map-wrap{position:relative;overflow:hidden;min-height:360px;border-radius:18px;background:var(--paper);border:1px solid var(--line);box-shadow:0 18px 45px rgba(20,38,80,.08)}
-  .naver-map{width:100%;height:100%;min-height:360px}
-  .map-floating-card{position:absolute;left:24px;bottom:24px;width:min(360px,calc(100% - 48px));padding:20px 22px;background:rgba(255,255,255,.94);border:1px solid rgba(213,220,236,.9);border-radius:16px;box-shadow:0 14px 34px rgba(15,35,80,.18);backdrop-filter:blur(8px);z-index:2}
-  .map-floating-card strong{display:block;font-size:18px;font-weight:900;color:var(--ink);letter-spacing:-.03em}
-  .map-floating-card span{display:block;margin-top:8px;font-size:13px;line-height:1.65;color:var(--gray)}
-  .map-floating-card .map-link{margin-top:14px;padding:10px 16px;font-size:13px}
-  .map-fallback{height:360px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;text-align:center;color:var(--gray-l);font-size:14px;font-weight:700}
-  @media (max-width:720px){
-    .naver-map-wrap,.naver-map{min-height:430px}
-    .map-floating-card{left:14px;right:14px;bottom:14px;width:auto;padding:17px}
-  }
   .copy-line:hover{border-color:var(--blue);background:#fff}
   .copy-chip{padding:10px 16px;background:#fff;border:1.5px solid #d6ddec;border-radius:24px;font-family:inherit;font-size:13.5px;font-weight:700;color:var(--blue);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
   .copy-chip:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
   .copy-chip.done{background:#1f8a5b;color:#fff;border-color:#1f8a5b}
   .busno{padding:6px 14px;background:var(--blue);color:#fff;border-radius:20px;font-size:13px;font-weight:800;letter-spacing:.02em}
 </style>
-<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=4qswvhm869"></script>
-<script>
-  (function () {
-    var hospital = {
-      name: '서울더원마취통증의학과의원',
-      // 판교우림더블유시티 인근 좌표입니다. 실제 핀 위치가 조금 다르면 아래 lat/lng만 조정하면 됩니다.
-      lat: 37.400942,
-      lng: 127.103546
-    };
-
-    function showMapError() {
-      var mapEl = document.getElementById('naver-map');
-      if (!mapEl) return;
-      mapEl.innerHTML = '<div class="map-fallback">네이버 지도 API 로딩에 실패했습니다.<br>네이버 클라우드 콘솔의 Web 서비스 URL 등록 여부를 확인해 주세요.<a class="btn btn-navy" href="https://map.naver.com/p/search/서울더원마취통증의학과의원" target="_blank" rel="noopener">네이버 지도 · 길찾기 →</a></div>';
-    }
-
-    function initNaverMap() {
-      var mapEl = document.getElementById('naver-map');
-      if (!mapEl) return;
-      if (!window.naver || !naver.maps) { showMapError(); return; }
-
-      var position = new naver.maps.LatLng(hospital.lat, hospital.lng);
-      var map = new naver.maps.Map(mapEl, {
-        center: position,
-        zoom: 17,
-        minZoom: 8,
-        zoomControl: true,
-        zoomControlOptions: { position: naver.maps.Position.TOP_RIGHT },
-        scaleControl: false,
-        logoControl: true,
-        mapDataControl: false
-      });
-
-      var marker = new naver.maps.Marker({
-        position: position,
-        map: map,
-        title: hospital.name
-      });
-
-      var infoWindow = new naver.maps.InfoWindow({
-        content: '<div style="padding:12px 16px;min-width:220px;font-family:Pretendard,Arial,sans-serif;line-height:1.55">' +
-          '<strong style="display:block;color:#152a5e;font-size:14px">서울더원마취통증의학과의원</strong>' +
-          '<span style="display:block;margin-top:4px;color:#566070;font-size:12px">판교우림더블유시티 2층 218, 223호</span>' +
-        '</div>'
-      });
-
-      infoWindow.open(map, marker);
-      naver.maps.Event.addListener(marker, 'click', function () {
-        if (infoWindow.getMap()) infoWindow.close();
-        else infoWindow.open(map, marker);
-      });
-
-      setTimeout(function () {
-        naver.maps.Event.trigger(map, 'resize');
-        map.setCenter(position);
-      }, 250);
-    }
-
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initNaverMap);
-    else initNaverMap();
-  })();
-</script>
 <script>
   (function () {
     function flash(el, txt, orig) {
@@ -179,6 +105,43 @@
         if (btn.classList.contains('copy-line')) flash(btn, '✓ 복사되었습니다');
         else flash(btn, '✓');
       });
+    });
+  })();
+</script>
+<!-- 네이버 지도 API (Client ID) -->
+<script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=4qswvhm869"></script>
+<script>
+  (function () {
+    var LAT = 37.40199, LNG = 127.10666, NAME = '서울더원마취통증의학과의원';
+    var fb = document.querySelector('.map-fallback');
+    function showFB(){ if (fb) fb.style.display = 'flex'; }
+    function hideFB(){ if (fb) fb.style.display = 'none'; }
+    window.navermap_authFailure = showFB;
+    function initMap() {
+      if (!(window.naver && naver.maps && naver.maps.Map)) { showFB(); return; }
+      try {
+        var pos = new naver.maps.LatLng(LAT, LNG);
+        var map = new naver.maps.Map('naver-map', { center: pos, zoom: 17 });
+        new naver.maps.Marker({ position: pos, map: map, title: NAME });
+        hideFB();
+      } catch (e) { showFB(); }
+    }
+    if (window.naver && naver.maps) { initMap(); }
+    else { window.addEventListener('load', initMap); }
+
+    // 길찾기: 폰에 네이버 지도 앱이 있으면 앱으로 연결, 없으면 웹으로
+    var web = 'https://map.naver.com/p/search/' + encodeURIComponent(NAME);
+    var btn = document.getElementById('routeBtn');
+    if (btn) btn.addEventListener('click', function () {
+      var isMobile = /android|iphone|ipad|ipod/i.test(navigator.userAgent);
+      if (isMobile) {
+        var app = 'nmap://place?lat=' + LAT + '&lng=' + LNG + '&name=' + encodeURIComponent(NAME) + '&appname=com.seoulthe1.web';
+        var t = Date.now();
+        setTimeout(function () { if (Date.now() - t < 1700) window.location.href = web; }, 1300);
+        window.location.href = app;
+      } else {
+        window.open(web, '_blank', 'noopener');
+      }
     });
   })();
 </script>
