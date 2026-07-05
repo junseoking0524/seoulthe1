@@ -12,7 +12,7 @@ a{color:inherit}
 h1,h2,h3,h4{margin:0;letter-spacing:-.02em}
 .wrap{max-width:1180px;margin:0 auto;padding:0 40px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
-.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity 1.25s cubic-bezier(.19,.65,.28,1),transform 1.25s cubic-bezier(.19,.65,.28,1)}
 .reveal.in{opacity:1;transform:none}
 .stripe{background-image:repeating-linear-gradient(135deg,rgba(27,63,150,.07) 0 10px,rgba(27,63,150,.02) 10px 20px);background-color:#eef1f7}
 .stripe-d{background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.09) 0 10px,rgba(255,255,255,.02) 10px 20px)}
@@ -127,7 +127,7 @@ h1,h2,h3,h4{margin:0;letter-spacing:-.02em}
 .fac-big:hover img{transform:scale(1.06)}
 .fac-hint{position:absolute;right:18px;top:18px;display:flex;align-items:center;gap:7px;padding:8px 14px;background:rgba(15,36,86,.55);backdrop-filter:blur(6px);color:#fff;border-radius:22px;font-size:12.5px;font-weight:700;transition:opacity .3s}
 .fac-big:hover .fac-hint{opacity:0}
-.fac-overlay{position:absolute;left:0;right:0;bottom:0;padding:34px 34px 30px;background:linear-gradient(180deg,rgba(9,20,50,0),rgba(9,20,50,.62) 40%,rgba(9,20,50,.9));transform:translateY(calc(100% - 78px));transition:transform .5s cubic-bezier(.22,.61,.36,1)}
+.fac-overlay{position:absolute;left:0;right:0;bottom:0;padding:34px 34px 30px;background:linear-gradient(180deg,rgba(9,20,50,0),rgba(9,20,50,.62) 40%,rgba(9,20,50,.9));transform:translateY(calc(100% - 104px));transition:transform .5s cubic-bezier(.22,.61,.36,1)}
 .fac-big:hover .fac-overlay{transform:translateY(0)}
 .fac-overlay .en{font:600 15px 'Pretendard',sans-serif;letter-spacing:.24em;color:var(--orange-l)}
 .fac-overlay h3{margin-top:4px;font-size:30px;font-weight:800;color:#fff}
@@ -304,8 +304,8 @@ h1,h2,h3,h4{margin:0;letter-spacing:-.02em}
 }
 
 /* ===== Directional reveal ===== */
-.reveal-l{opacity:0;transform:translateX(-48px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
-.reveal-r{opacity:0;transform:translateX(48px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
+.reveal-l{opacity:0;transform:translateX(-56px);transition:opacity 1.25s cubic-bezier(.19,.65,.28,1),transform 1.25s cubic-bezier(.19,.65,.28,1)}
+.reveal-r{opacity:0;transform:translateX(56px);transition:opacity 1.25s cubic-bezier(.19,.65,.28,1),transform 1.25s cubic-bezier(.19,.65,.28,1)}
 .reveal-l.in,.reveal-r.in{opacity:1;transform:none}
 .reveal.slow,.reveal-l.slow,.reveal-r.slow{transition-duration:1.4s}
 

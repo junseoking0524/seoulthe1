@@ -71,9 +71,9 @@
   function footerHTML() {
     return '<div class="wrap foot-in">' +
         '<div><div class="fname">서울<span style="color:var(--orange-l)">더원</span>마취통증의학과의원</div>' +
-          '<p class="faddr">' + ADDR + '<br>대표전화 <a href="' + PHONE_TEL + '">' + PHONE + '</a></p>' +
+          '<p class="faddr">' + ADDR + '<br>대표전화 <a href="' + PHONE_TEL + '">' + PHONE + '</a></p></div>' +
+        '<div><div class="fh">진료시간</div><div class="ft">평일 09:00 – 20:00<br>점심 13:30 – 14:30<br><b>주말·공휴일 휴진</b></div>' +
           '<div class="ft-note">※ 도수치료 · 물리치료는 점심시간 없이 진료</div></div>' +
-        '<div><div class="fh">진료시간</div><div class="ft">평일 09:00 – 20:00<br>점심 13:30 – 14:30<br><b>주말·공휴일 휴진</b></div></div>' +
         '<div class="foot-btns">' +
           '<a class="o" href="' + BOOK_URL + '" target="_blank" rel="noopener">네이버 예약하기</a>' +
           '<a class="g" href="location.html">오시는 길</a>' +
@@ -184,12 +184,32 @@
     secs.forEach(function (s) { spy.observe(s); });
   }
 
+  function initAbout() {
+    if ((document.body.getAttribute('data-page') || '') !== 'about') return;
+    var groups = Array.prototype.slice.call(document.querySelectorAll('[data-ag]'));
+    if (!groups.length) return;
+    var MAP = { '#depts': 'depts', '#doctor': 'doctor', '#facility': 'facility' };
+    function apply() {
+      var only = MAP[location.hash] || '';
+      groups.forEach(function (el) {
+        el.style.display = (!only || el.getAttribute('data-ag') === only) ? '' : 'none';
+      });
+      if (only) {
+        // 단일 섹션만 보일 땐 상단(서브히어로)에서 시작
+        requestAnimationFrame(function () { window.scrollTo(0, 0); });
+      }
+    }
+    apply();
+    window.addEventListener('hashchange', apply);
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     var page = document.body.getAttribute('data-page') || '';
     var h = document.getElementById('site-header');
     if (h) { h.className = 'site-header'; h.innerHTML = headerHTML(page); h.insertAdjacentHTML('afterend', mobileNavHTML()); }
     var f = document.getElementById('site-footer');
     if (f) { f.className = 'site-footer'; f.innerHTML = footerHTML(); }
+    initAbout();
     initMega(); initMobile(); initReveal(); initGallery(); initSpy();
   });
 })();
