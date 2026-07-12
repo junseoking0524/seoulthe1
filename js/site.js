@@ -14,7 +14,7 @@
     { key: '소개', label: '소개', href: 'about.html', desc: '서울더원마취통증의학과의원을 소개합니다.',
       items: [['진료과목', 'about.html#depts'], ['의료진 소개', 'about.html#doctor'], ['병원소개', 'about.html#facility'], ['비급여항목', 'fees.html']] },
     { key: '치료안내', label: '치료안내', href: 'treatment.html', desc: '통증의 원인부터 찾는 비수술 치료.',
-      items: [['관절치료 (SI치료)', 'treatment.html#care-01'], ['척추치료 (CI치료)', 'treatment.html#care-02'], ['신경성형시술 (PEN 시술)', 'treatment.html#care-03'], ['재생주사(프롤로) 치료', 'treatment.html#care-04'], ['체외충격파 (ESWT)', 'treatment.html#care-05'], ['수액치료', 'treatment.html#care-06']] },
+      items: [['관절치료 (SI치료)', 'treatment.html#care-01'], ['척추치료 (CI치료)', 'treatment.html#care-02'], ['신경성형시술 (PEN 시술)', 'treatment.html#care-03'], ['재생주사·수액치료', 'treatment.html#care-04'], ['체외충격파 (ESWT)', 'treatment.html#care-05'], ['도수치료', 'treatment.html#care-06']] },
     { key: '진료시간', label: '진료시간', href: 'hours.html', items: [] },
     { key: '오시는 길', label: '오시는 길', href: 'location.html', items: [] },
     { key: '예약', label: '예약', href: BOOK_URL, external: true, items: [] }

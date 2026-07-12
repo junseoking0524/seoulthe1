@@ -424,3 +424,35 @@ h1,h2,h3,h4{margin:0;letter-spacing:-.02em}
   .hero p{font-size:14px}
   .subhero .en{font-size:14px;letter-spacing:.28em}
 }
+
+/* ===== Doctor greeting intro (about + home) ===== */
+.dr-intro{display:grid;grid-template-columns:.82fr 1.18fr;gap:48px;align-items:start;grid-template-areas:"photo title" "photo body"}
+.dr-intro .dr-title{grid-area:title;font-size:24px;font-weight:800;color:var(--ink);line-height:1.34;letter-spacing:-.01em}
+.dr-intro .dr-photo{grid-area:photo;border-radius:18px;overflow:hidden;box-shadow:0 20px 48px rgba(20,30,60,.16);aspect-ratio:3/4;background:#eef1f7}
+.dr-intro .dr-photo img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.dr-intro .dr-body{grid-area:body;margin-top:16px}
+.dr-intro .dr-body p{font-size:14.5px;line-height:1.72;color:var(--gray)}
+.dr-intro .dr-body p+p{margin-top:10px}
+.dr-intro .dr-sign{margin-top:18px;font-size:19px;font-weight:800;color:#152a5e}
+.dr-intro .dr-sign span{font-size:14px;font-weight:600;color:var(--gray-l)}
+
+/* sub-treatment label pill (merged 재생주사·수액 section) */
+.sub-pill{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;background:var(--soft);color:var(--blue);border-radius:22px;font-size:13.5px;font-weight:800;letter-spacing:.01em}
+.sub-pill::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--orange)}
+.blk-list .li span b{color:var(--ink);font-weight:800}
+
+/* hours: 야간진료 태그 줄바꿈 */
+.hr-val{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.hr-val .tag{margin-left:0}
+
+@media (max-width:860px){
+  /* 의료진 소개: 헤드라인 → 사진 → 내용 순서, 행간 좁게 */
+  .dr-intro{grid-template-columns:1fr;grid-template-areas:"title" "photo" "body";gap:0}
+  .dr-intro .dr-title{font-size:20px;line-height:1.3;margin-bottom:16px}
+  .dr-intro .dr-photo{max-width:340px;margin:0 auto 20px;aspect-ratio:3/4}
+  .dr-intro .dr-body{margin-top:0}
+  .dr-intro .dr-body p{font-size:14px;line-height:1.6}
+  .dr-intro .dr-body p+p{margin-top:9px}
+  /* 야간진료 태그를 시간 아래 줄로 */
+  .hr-val{flex-direction:column;align-items:flex-start;gap:7px}
+}
