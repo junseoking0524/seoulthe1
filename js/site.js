@@ -153,6 +153,24 @@
       t.addEventListener('mouseenter', function () { go(i); });
     });
     dots.forEach(function (d, i) { d.addEventListener('click', function () { go(i); }); });
+    // prev/next arrows (touch/mobile)
+    var prev = big.querySelector('[data-fac-prev]');
+    var next = big.querySelector('[data-fac-next]');
+    if (prev) prev.addEventListener('click', function (e) { e.stopPropagation(); go(idx - 1); });
+    if (next) next.addEventListener('click', function (e) { e.stopPropagation(); go(idx + 1); });
+    // swipe left/right
+    var sx = null;
+    big.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+    big.addEventListener('touchend', function (e) {
+      if (sx === null) return;
+      var dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 40) { go(idx + (dx < 0 ? 1 : -1)); }
+      sx = null;
+    });
+    // tap image toggles info overlay on touch devices (no hover)
+    big.addEventListener('click', function () {
+      if (window.matchMedia('(hover: none)').matches) big.classList.toggle('show');
+    });
     big.addEventListener('mouseenter', function () { paused = true; });
     big.addEventListener('mouseleave', function () { paused = false; });
     timer = setInterval(function () { if (!paused) go(idx + 1); }, 3000);

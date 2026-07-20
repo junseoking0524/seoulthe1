@@ -176,12 +176,18 @@
     var web = 'https://map.naver.com/p/search/' + encodeURIComponent(NAME);
     var btn = document.getElementById('routeBtn');
     if (btn) btn.addEventListener('click', function () {
-      var isMobile = /android|iphone|ipad|ipod/i.test(navigator.userAgent);
-      if (isMobile) {
-        var app = 'nmap://place?lat=' + LAT + '&lng=' + LNG + '&name=' + encodeURIComponent(NAME) + '&appname=com.seoulthe1.web';
+      var ua = navigator.userAgent;
+      var isAndroid = /android/i.test(ua);
+      var isIOS = /iphone|ipad|ipod/i.test(ua) || (/Macintosh/.test(ua) && 'ontouchend' in document);
+      var nmap = 'nmap://place?lat=' + LAT + '&lng=' + LNG + '&name=' + encodeURIComponent(NAME) + '&appname=com.seoulthe1.web';
+      if (isAndroid) {
+        // intent: 앱 있으면 앱, 없으면 자동으로 웹으로 폴백
+        window.location.href = 'intent://place?lat=' + LAT + '&lng=' + LNG + '&name=' + encodeURIComponent(NAME) + '&appname=com.seoulthe1.web#Intent;scheme=nmap;package=com.nhn.android.nmap;S.browser_fallback_url=' + encodeURIComponent(web) + ';end';
+      } else if (isIOS) {
+        // Safari: 앱 실행 시도, 미설치면 웹으로 폴백
         var t = Date.now();
-        setTimeout(function () { if (Date.now() - t < 1700) window.location.href = web; }, 1300);
-        window.location.href = app;
+        setTimeout(function () { if (Date.now() - t < 1600) window.location.href = web; }, 1200);
+        window.location.href = nmap;
       } else {
         window.open(web, '_blank', 'noopener');
       }
