@@ -279,7 +279,7 @@ h1,h2,h3,h4{margin:0;letter-spacing:-.02em}
   .spy{display:none}
 }
 @media (max-width:860px){
-  .wrap{padding:0 20px}
+  .wrap{padding-left:20px;padding-right:20px}
   .headmain-in{padding:16px 20px 0}
   .nav,.mega{display:none}
   .hamb{display:flex}
